@@ -1,0 +1,127 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "FullEC2ResourceAccess",
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "ec2:Region": "${region}"
+                }
+            }
+        },
+        {
+            "Sid": "IAMAccess",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "iam:GetRole",
+                "iam:GetPolicyVersion",
+                "iam:GetInstanceProfile",
+                "iam:GetPolicy",
+                "iam:ListPoliciesGrantingServiceAccess",
+                "iam:ListEntitiesForPolicy",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeletePolicy",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:AttachRolePolicy",
+                "iam:ListInstanceProfiles",
+                "iam:AddRoleToInstanceProfile",
+                "iam:CreatePolicy",
+                "iam:ListInstanceProfilesForRole",
+                "iam:DetachRolePolicy",
+                "iam:ListPolicyVersions",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListAttachedUserPolicies",
+                "iam:ListPolicyTags",
+                "iam:GetUser",
+                "iam:PassRole",
+                "iam:ListRolePolicies"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:policy/*",
+                "arn:aws:iam::*:user/*",
+                "arn:aws:iam::*:instance-profile/*",
+                "arn:aws:iam::*:group/*",
+                "arn:aws:iam::*:role/*"
+            ]
+        },
+        {
+            "Sid": "RestrictEC2TypeInstances",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:RunInstances"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "ForAnyValue:StringNotEquals": {
+                    "ec2:InstanceType": [
+                        "t3.micro",
+                        "c6i.xlarge"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "RestrictEC2NewInstanceTag",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:CreateVolume",
+                "ec2:RunInstances"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "ForAnyValue:StringNotLike": {
+                    "aws:ResourceTag/Owner": "${user_name}"
+                }
+            }
+        },
+        {
+            "Sid": "RestrictEC2ownedby",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:StartInstances",
+                "ec2:StopInstances",
+                "ec2:RebootInstances",
+                "ec2:TerminateInstances"
+            ],
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:ResourceTag/Owner": "${user_name}"
+                }
+            }
+        },
+        {
+            "Sid": "RestrictCreateDeleteTags",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:CreateTags",
+                "ec2:DeleteTags"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:RequestTag/Owner": "${user_name}"
+                }
+            }
+        },
+        {
+            "Sid": "RestrictCreateTags",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:CreateTags"
+            ],
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "StringNotEquals": {
+                    "ec2:CreateAction" : "RunInstances"
+                }
+            }
+        }
+    ]
+}

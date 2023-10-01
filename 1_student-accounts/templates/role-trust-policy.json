@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+                "AWS": "${user_arn}"
+            },
+            "Effect": "Allow",
+            "Condition": {
+                "StringEquals": {
+                    "sts:ExternalId": "${externalid_token}"
+                }
+            }
+        }
+    ]
+}
