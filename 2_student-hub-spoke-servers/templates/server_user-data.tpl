@@ -1,7 +1,7 @@
 #!/bin/bash
 # Install neccesary packages
 yum update -y
-yum -y install docker
+yum install -y docker
 yum install -y git
 
 # Set timezone
@@ -48,4 +48,30 @@ ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker network create frontweb
 docker-compose -f /var/docker/docker-compose.yml up -d
 
+#--------------------------------------------------------------------------------------------------------------
+# Export LAB data to local Redis DB
+#--------------------------------------------------------------------------------------------------------------
+# Install Redis and python dependencies
+#amazon-linux-extras redis6
+#yum install redis -y
+#yum install -y gcc openssl-devel jemalloc-devel openssl-devel tcl tcl-devel
+#wget http://download.redis.io/redis-stable.tar.gz && tar xvzf redis-stable.tar.gz && cd redis-stable && make
+#systemctl start redis
+#systemctl enable redis
 
+# Redis DB: allow access from anywhere and set password
+#sed -i 's/^bind 127.0.0.1/bind 0.0.0.0/' /etc/redis/redis.conf
+#sh -c "echo 'requirepass ${db_pass}' >> /etc/redis/redis.conf"
+#systemctl restart redis-server
+
+# Install python dependencies
+#yum install python3-pip
+#pip3 install redis kubernetes
+
+# Export the token and server certificate to AWS Parameter Store using Python
+#cat << EOF > export-lab-info.py
+#${redis_script}
+#EOF
+
+# Run script
+#python3 export-lab-info.py

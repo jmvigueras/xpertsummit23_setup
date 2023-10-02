@@ -86,7 +86,7 @@ data "template_file" "fgt_active_vpn-config" {
     local_network         = var.hub[count.index]["cidr"]
     mode_cfg              = var.hub[count.index]["mode_cfg"]
     site_private_ip_start = cidrhost(cidrsubnet(var.hub[count.index]["vpn_cidr"], 1, 0), 3)
-    site_private_ip_end   = cidrhost(cidrsubnet(var.hub[count.index]["vpn_cidr"], 1, 0), 14)
+    site_private_ip_end   = cidrhost(cidrsubnet(var.hub[count.index]["vpn_cidr"], 1, 0), 62)
     site_private_ip_mask  = cidrnetmask(cidrsubnet(var.hub[count.index]["vpn_cidr"], 1, 0))
     site_bgp_asn          = var.hub[count.index]["bgp_asn_spoke"]
     vpn_psk               = var.hub[count.index]["vpn_psk"] == "" ? random_string.vpn_psk.result : var.hub[count.index]["vpn_psk"]

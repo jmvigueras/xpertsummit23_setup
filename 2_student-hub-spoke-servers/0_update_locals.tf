@@ -33,7 +33,7 @@ locals {
     bgp_asn_hub       = "65000"
     bgp_asn_spoke     = "65000"
     vpn_cidr          = "172.20.0.0/24"
-    vpn_psk           = "secret-key-123"
+    vpn_psk           = local.externalid_token
     cidr              = local.hub_vpc_cidr
     ike_version       = "2"
     network_id        = "1"

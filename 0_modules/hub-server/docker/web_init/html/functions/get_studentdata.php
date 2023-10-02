@@ -1,8 +1,4 @@
 <?php
-//require("class_DevCoder.inc");
-//use DevCoder\DotEnv;
-//(new DotEnv('/var/www/.env'))->load();
-
 // define variables and set to empty values
 $email = $exit = "";
 $dbhost = $dbuser = $dbpass = $db = $table = $mysqli = $sql = $result = "";

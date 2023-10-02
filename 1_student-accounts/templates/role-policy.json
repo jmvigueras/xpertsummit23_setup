@@ -61,6 +61,8 @@
                 "ForAnyValue:StringNotEquals": {
                     "ec2:InstanceType": [
                         "t3.micro",
+                        "t3.small",
+                        "c6i.large",
                         "c6i.xlarge"
                     ]
                 }
