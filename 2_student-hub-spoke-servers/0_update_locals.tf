@@ -32,7 +32,7 @@ locals {
     id                = "HUB"
     bgp_asn_hub       = "65000"
     bgp_asn_spoke     = "65000"
-    vpn_cidr          = "172.20.0.0/24"
+    vpn_cidr          = "10.10.20.0/24"
     vpn_psk           = local.externalid_token
     cidr              = local.hub_vpc_cidr
     ike_version       = "2"
@@ -89,7 +89,7 @@ locals {
   db = {
     db_host  = "mysqldb"
     db_user  = "root"
-    db_pass  = "L2e9TPd8LCJvAz7"
+    db_pass  = local.random_url_db
     db_name  = "students"
     db_table = "students"
     db_port  = "3306"
