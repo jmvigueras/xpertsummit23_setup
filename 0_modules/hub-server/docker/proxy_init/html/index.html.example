@@ -7,7 +7,7 @@
     <script>  
 	function redirect(){
                 tokenid=document.getElementById('tokenid').value
-                window.location = "http://cloudlab.jvigueras-fortinet-site.com/"+tokenid
+                window.location = "http://xs23.xpertsummit-es.com/"+tokenid
         };	
   </script> 
   </head>

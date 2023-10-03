@@ -84,7 +84,7 @@ locals {
   git_uri          = "https://github.com/jmvigueras/xpertsummit23_setup.git"
   git_uri_app_path = "/xpertsummit23_setup/0_modules/hub-server/"
   # LAB server FQDN
-  lab_fqdn = "cloudlab.xpertsummit23.com"
+  lab_fqdn = "xs23.xpertsummit23.com"
   # DB
   db = {
     db_host  = "mysqldb"

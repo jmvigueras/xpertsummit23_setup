@@ -42,6 +42,7 @@ data "template_file" "srv_user_data" {
     docker_file      = data.template_file.srv_user_data_dockerfile.rendered
     nginx_config     = data.template_file.srv_user_data_nginx_config.rendered
     nginx_html       = data.template_file.srv_user_data_nginx_html.rendered
+    redis_script     = ""
 
     db_host  = local.db["db_host"]
     db_user  = local.db["db_user"]
