@@ -8,8 +8,8 @@ variable "prefix" {
 variable "tags" {
   description = "Attribute for tag Enviroment"
   type        = map(any)
-  default     = {
-    Project   = "xpertsummit22"
+  default = {
+    Project = "xpertsummit22"
   }
 }
 
@@ -41,4 +41,16 @@ variable "externalid_token" {
   description = "ExternalId token for assume role"
   type        = string
   default     = "super-secret-externalid-token"
+}
+
+variable "dns_zone_id" {
+  description = "AWS Route 53 hosted zone ID"
+  type        = string
+  default     = "*"
+}
+
+variable "dns_domain" {
+  description = "DNS domain"
+  type        = string
+  default     = "xpertsummit-es.com"
 }

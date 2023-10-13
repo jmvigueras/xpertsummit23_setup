@@ -48,7 +48,7 @@ else:
       print("Error DB: {}".format(e))
     else:
       #######################################
-      # Connecte to servers
+      # Connect to servers
       for server_ip in server_list:
         rURL = 'http://'+ server_ip[0]
         print (rURL)

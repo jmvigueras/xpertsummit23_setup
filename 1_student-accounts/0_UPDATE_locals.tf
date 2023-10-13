@@ -19,6 +19,10 @@ locals {
 
   # Path prefix for users (regex /path-prefix/)
   user_path_prefix = "/xpertsummit23/"
+
+  # DNS details
+  dns_zone_id = "Z0507506RNJD04O8Q048"
+  dns_domain  = "xpertsummit-es.com"
 }
 
 #-------------------------------------------------------------------------------------

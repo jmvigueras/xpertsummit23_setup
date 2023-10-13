@@ -15,5 +15,7 @@ module "iam-users" {
   user_number      = local.user_number_peer_region
   user_path_prefix = local.user_path_prefix
   region           = local.regions[count.index]
+  dns_zone_id      = local.dns_zone_id
+  dns_domain       = local.dns_domain
   group_name       = aws_iam_group.group[count.index].name
 }

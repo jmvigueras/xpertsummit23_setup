@@ -7,7 +7,7 @@ module "cloud9-ide" {
   source     = "./modules/cloud9-ide"
 
   tags      = local.tags
-  region    = local.region["id"]          // region to deploy Cloud9 enviroments
+  region    = local.region["id"]              // region to deploy Cloud9 enviroments
   subnet_id = aws_subnet.vpc_cloud9_subnet.id // subnet where allocate Cloud9 instances ni
   user_name = tolist(data.aws_iam_users.users.names)[count.index]
   user_arn  = tolist(data.aws_iam_users.users.arns)[count.index]

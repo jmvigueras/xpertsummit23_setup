@@ -12,7 +12,7 @@ data "terraform_remote_state" "student_accounts" {
 #--------------------------------------------------------------------------
 # Create key-pair
 resource "aws_key_pair" "keypair" {
-  key_name   = "${local.prefix}-keypair-${trimspace(random_string.keypair.result)}}"
+  key_name   = "${local.prefix}-keypair-${trimspace(random_string.keypair.result)}"
   public_key = tls_private_key.ssh.public_key_openssh
 }
 resource "tls_private_key" "ssh" {

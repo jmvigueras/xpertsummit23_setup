@@ -15,14 +15,29 @@ locals {
     Project = "xpertsummit23"
   }
   #-----------------------------------------------------------------------------------------------------
+  # DNS and FortiWEB
+  #-----------------------------------------------------------------------------------------------------
+  # AWS Route 53 DNS zone name
+  dns_zone_name = "xpertsummit-es.com"
+  # Fortiweb Cloud template ID
+  fwb_cloud_template = "b4516b99-3d08-4af8-8df7-00246da409cf"
+  # FortiWEB Cloud regions where deploy
+  fortiweb_region = "eu-central-1"
+  # FortiWEB Cloud platform names
+  fortiweb_platform = "AWS"
+  # LAB server FQDN
+  lab_fqdn = "${local.prefix}.${data.aws_route53_zone.data_dns_zone.name}"
+  #-----------------------------------------------------------------------------------------------------
   # FGT General
   #-----------------------------------------------------------------------------------------------------
   admin_port = "8443"
   admin_cidr = "0.0.0.0/0"
 
-  fgt_instance_type = "c6i.large"
-  fgt_build         = "build1517"
-  license_type      = "payg"
+  fgt_hub_type = "c6i.xlarge"
+  fgt_build    = "build1517"
+  license_type = "payg"
+  # IP in subnet allocated to fortigate intefaces 
+  fgt_cidrhost = "10"
   #-----------------------------------------------------------------------------------------------------
   # HUB
   #-----------------------------------------------------------------------------------------------------
@@ -44,9 +59,13 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # SPOKE
   #-----------------------------------------------------------------------------------------------------
-  spoke_vpc_cidr = "10.1.0.0/24" // Range assigned to region1 student0
+  fgt_spoke_type   = "c6i.large"
+  student_srv_type = "t3.small"
 
-  spoke_srv_type = "t3.small"
+  # Student server IP in bastion subnet
+  student_srv_private_ip = cidrhost(module.spoke_vpc.subnet_cidrs["bastion"], 10) // "x.x.x.202"
+
+  spoke_vpc_cidr = "10.1.0.0/24" // Range assigned to region1 student0
 
   spoke = {
     id      = "student0"
@@ -73,18 +92,20 @@ locals {
   #--------------------------------------------------------------------------------------------
   # Server LAB variables
   #--------------------------------------------------------------------------------------------
+  # Lab server IP in bastion subnet
+  lab_srv_private_ip = cidrhost(module.hub_vpc.subnet_cidrs["bastion"], 10) // "x.x.x.202"
+
   # External ID token generated in deployent student
   externalid_token = data.terraform_remote_state.student_accounts.outputs.externalid_token
   random_url_db    = trimspace(random_string.db_url.result)
 
   # Instance type 
-  srv_instance_type = "t3.large"
+  lab_srv_type = "t3.large"
 
   # Git repository
   git_uri          = "https://github.com/jmvigueras/xpertsummit23_setup.git"
   git_uri_app_path = "/xpertsummit23_setup/0_modules/hub-server/"
-  # LAB server FQDN
-  lab_fqdn = "xs23.xpertsummit-es.com"
+
   # DB
   db = {
     db_host  = "mysqldb"
@@ -94,12 +115,11 @@ locals {
     db_table = "students"
     db_port  = "3306"
   }
-
   #--------------------------------------------------------------------------------------------
   # Student-0 server LAB variables
   #--------------------------------------------------------------------------------------------
-  docker_image          = "swaggerapi/petstore"
-  docker_port_internal  = "8080"
+  docker_image         = "swaggerapi/petstore"
+  docker_port_internal = "8080"
 }
 
 

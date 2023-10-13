@@ -13,6 +13,17 @@
             }
         },
         {
+            "Sid":"DNSNewRecordSet",
+            "Effect": "Allow",
+            "Action": "route53:ChangeResourceRecordSets",
+            "Resource": "arn:aws:route53:::hostedzone/${dns_zone_id}",
+            "Condition": {
+                "ForAllValues:StringLike":{
+                     "route53:ChangeResourceRecordSetsNormalizedRecordNames": ["${prefix}-*.${dns_domain}"]
+                }
+            }
+        },
+        {
             "Sid": "IAMAccess",
             "Effect": "Allow",
             "Action": [

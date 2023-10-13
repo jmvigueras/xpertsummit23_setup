@@ -24,13 +24,11 @@ output "spoke" {
 
 output "lab_server" {
   value = {
-    private_ip     = module.lab_server.vm["private_ip"]
-    public_ip      = module.lab_server.vm["public_ip"]
-    portal_uri     = "http://${module.lab_server.vm["public_ip"]}"
-    lab_uri        = "http://${module.lab_server.vm["public_ip"]}/${local.externalid_token}"
-    phpadmin       = "http://${module.lab_server.vm["public_ip"]}/${local.random_url_db}"
-    db_pass        = local.db["db_pass"]
-    db_docker_name = local.db["db_host"]
+    private_ip = module.lab_server.vm["private_ip"]
+    lab_uri    = "http://${module.lab_server.vm["public_ip"]}/${local.externalid_token}"
+    phpadmin   = "http://${module.lab_server.vm["public_ip"]}/${local.random_url_db}"
+    db_user    = "root"
+    db_pass    = local.db["db_pass"]
   }
 }
 
@@ -38,6 +36,16 @@ output "student_server" {
   value = {
     private_ip = module.student_server.vm["private_ip"]
     public_ip  = module.student_server.vm["public_ip"]
-    portal_uri = "http://${module.student_server.vm["public_ip"]}"
+    server_url = "http://${module.student_server.vm["public_ip"]}"
+    fgt_url    = "http://${module.spoke.fgt_eip_public}"
+  }
+}
+
+output "lab_portal" {
+  value = {
+    portal   = "http://${local.lab_fqdn}/${local.externalid_token}"
+    phpamdin = "http://${local.lab_fqdn}/${local.random_url_db}"
+    db_user  = "root"
+    db_pass  = local.db["db_pass"]
   }
 }
