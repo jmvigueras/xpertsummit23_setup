@@ -92,7 +92,7 @@ resource "aws_network_interface" "student_server" {
   private_ips       = [local.student_srv_private_ip]
   source_dest_check = false
   tags = {
-    Name = "${local.prefix}-student-0-server"
+    Name = "${local.prefix}-user-0-server"
   }
 }
 # Create EIP active public NI for server test
@@ -100,7 +100,7 @@ resource "aws_eip" "student_server" {
   domain            = "vpc"
   network_interface = aws_network_interface.student_server.id
   tags = {
-    Name = "${local.prefix}-student-0-server"
+    Name = "${local.prefix}-user-0-server"
   }
 }
 # Deploy cluster master node
@@ -108,7 +108,7 @@ module "student_server" {
   depends_on = [module.spoke]
   source     = "git::github.com/jmvigueras/modules//aws/new-instance_ni"
 
-  prefix  = "${local.prefix}-stdent-0-server"
+  prefix  = "${local.prefix}-user-0-server"
   keypair = trimspace(aws_key_pair.keypair.key_name)
 
   instance_type = local.student_srv_type
