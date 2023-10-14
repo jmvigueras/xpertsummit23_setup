@@ -9,11 +9,16 @@ variable "suffix" {
   default = "1"
 }
 
+variable "fgt_id" {
+  type    = string
+  default = null
+}
+
 variable "tags" {
   description = "Attribute for tag Enviroment"
   type        = map(any)
   default = {
-    project = "terraform"
+    Project = "terraform"
   }
 }
 

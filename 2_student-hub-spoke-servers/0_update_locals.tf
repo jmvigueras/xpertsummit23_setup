@@ -44,7 +44,7 @@ locals {
   hub_vpc_cidr = "10.10.10.0/24"
 
   hub = [{
-    id                = "HUB"
+    id                = "hub"
     bgp_asn_hub       = "65000"
     bgp_asn_spoke     = "65000"
     vpn_cidr          = "10.10.20.0/24"
@@ -68,7 +68,7 @@ locals {
   spoke_vpc_cidr = "10.1.0.0/24" // Range assigned to region1 student0
 
   spoke = {
-    id      = "student0"
+    id      = "user-0"
     cidr    = local.spoke_vpc_cidr
     bgp-asn = local.hub[0]["bgp_asn_spoke"]
   }
@@ -120,7 +120,7 @@ locals {
   #--------------------------------------------------------------------------------------------
   docker_image         = "swaggerapi/petstore"
   docker_port_internal = "8080"
-  student_owner        = "${local.prefix}.${local.region["id"]}.user-0"
+  student_id           = "${local.prefix}-${local.region["id"]}-user-0"
 }
 
 

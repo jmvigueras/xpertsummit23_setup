@@ -27,7 +27,7 @@ resource "aws_instance" "fgt" {
   }
 
   tags = {
-    Name = "${var.prefix}-fgt-${var.suffix}"
+    Name = local.fgt_id
   }
 }
 

@@ -37,11 +37,12 @@ data "template_file" "hub_fgt_extra_config" {
 module "hub" {
   source = "./modules/fgt"
 
-  prefix        = "${local.prefix}-${local.hub[0]["id"]}"
+  prefix        = local.prefix
   region        = local.region
   instance_type = local.fgt_hub_type
   keypair       = trimspace(aws_key_pair.keypair.key_name)
 
+  fgt_id       = "${local.hub[0]["id"]}-fgt"
   license_type = local.license_type
   fgt_build    = local.fgt_build
   fgt_config   = module.hub_config.fgt_config
@@ -103,11 +104,12 @@ data "template_file" "spoke_fgt_extra_config" {
 module "spoke" {
   source = "./modules/fgt"
 
-  prefix        = "${local.prefix}-${local.spoke["id"]}"
+  prefix        = local.prefix
   region        = local.region
   instance_type = local.fgt_spoke_type
   keypair       = trimspace(aws_key_pair.keypair.key_name)
 
+  fgt_id       = "${local.spoke["id"]}-fgt"
   license_type = local.license_type
   fgt_build    = local.fgt_build
   fgt_config   = module.spoke_config.fgt_config
