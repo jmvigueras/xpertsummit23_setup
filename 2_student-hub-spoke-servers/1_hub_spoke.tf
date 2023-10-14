@@ -42,7 +42,7 @@ module "hub" {
   instance_type = local.fgt_hub_type
   keypair       = trimspace(aws_key_pair.keypair.key_name)
 
-  fgt_id       = "${local.hub[0]["id"]}-fgt"
+  fgt_id       = "${local.prefix}-${local.hub[0]["id"]}-fgt"
   license_type = local.license_type
   fgt_build    = local.fgt_build
   fgt_config   = module.hub_config.fgt_config
@@ -109,7 +109,7 @@ module "spoke" {
   instance_type = local.fgt_spoke_type
   keypair       = trimspace(aws_key_pair.keypair.key_name)
 
-  fgt_id       = "${local.spoke["id"]}-fgt"
+  fgt_id       = "${local.prefix}-${local.spoke["id"]}-fgt"
   license_type = local.license_type
   fgt_build    = local.fgt_build
   fgt_config   = module.spoke_config.fgt_config

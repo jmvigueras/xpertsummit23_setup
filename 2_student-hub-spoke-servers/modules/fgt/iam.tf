@@ -1,11 +1,11 @@
 # Create the IAM role/profile for the API Call
 resource "aws_iam_instance_profile" "fgt-apicall-profile" {
-  name = "${var.prefix}-fgt-apicall-profile"
+  name = "${local.fgt_id}-fgt-apicall-profile"
   role = aws_iam_role.fgt-apicall-role.name
 }
 
 resource "aws_iam_role" "fgt-apicall-role" {
-  name = "${var.prefix}-fgt-apicall-role"
+  name = "${local.fgt_id}-fgt-apicall-role"
 
   assume_role_policy = <<EOF
 {
@@ -25,7 +25,7 @@ EOF
 }
 
 resource "aws_iam_policy" "fgt-apicall-policy" {
-  name        = "${var.prefix}-fgt-apicall-policy"
+  name        = "${local.fgt_id}-fgt-apicall-policy"
   path        = "/"
   description = "Policies for the FGT api-call Role"
 
@@ -53,7 +53,7 @@ EOF
 }
 
 resource "aws_iam_policy_attachment" "fgt-apicall-attach" {
-  name       = "${var.prefix}-fgt-apicall-attachment"
+  name       = "${local.fgt_id}-fgt-apicall-attachment"
   roles      = [aws_iam_role.fgt-apicall-role.name]
   policy_arn = aws_iam_policy.fgt-apicall-policy.arn
 }

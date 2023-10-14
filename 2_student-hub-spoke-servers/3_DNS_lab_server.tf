@@ -7,7 +7,7 @@ data "template_file" "fwb_cloud_create_app" {
   vars = {
     token          = var.fwb_cloud_token
     region         = local.fortiweb_region
-    app_name       = "${local.prefix}"
+    app_name       = "${local.prefix}-lab-server"
     zone_name      = local.dns_zone_name
     server_ip      = module.hub.fgt_eip_public
     server_port    = "80"
