@@ -23,7 +23,7 @@ $data='';
 if ($result = mysqli_query($con,$sql)) {
     while($row = mysqli_fetch_array($result))
     {
-        $data .= '<br> User: ' . $row['user_id'] .' ServerIP: '. $row['server_ip'] . ' Time: ' . $row['server_check'];
+        $data .= '<br> User: <b>' . $row['user_id'] .'</b> ServerIP: '. $row['server_ip'] . ' Time: ' . $row['server_check'];
     }
 }
 mysqli_close($con);

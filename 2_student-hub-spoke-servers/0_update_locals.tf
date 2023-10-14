@@ -120,6 +120,7 @@ locals {
   #--------------------------------------------------------------------------------------------
   docker_image         = "swaggerapi/petstore"
   docker_port_internal = "8080"
+  student_owner        = "${local.prefix}.${local.region["id"]}.user-0"
 }
 
 

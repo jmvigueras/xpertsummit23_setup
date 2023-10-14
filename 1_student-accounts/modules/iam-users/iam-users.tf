@@ -27,15 +27,15 @@ resource "aws_iam_access_key" "user_access_key" {
   count = var.user_number
   user  = aws_iam_user.user[count.index].name
 }
-
 #######################################################################################
 # Role for Terraform deployment with rights
-
 // Create role for deploy with Terraform
 resource "aws_iam_role" "user_terraform-role" {
   count              = var.user_number
   name               = "role-${var.prefix}-${var.region}-user-${count.index + 1}"
   assume_role_policy = data.template_file.data-user_role-trust-policy[count.index].rendered
+
+  tags = var.tags
 }
 // Create policy
 resource "aws_iam_policy" "user_terraform-policy" {
@@ -44,6 +44,8 @@ resource "aws_iam_policy" "user_terraform-policy" {
   path        = var.user_path_prefix
   description = "Policies for terraform role user-${count.index + 1}"
   policy      = data.template_file.data-user_role-policy[count.index].rendered
+
+  tags = var.tags
 }
 // Asociate policy to role
 resource "aws_iam_policy_attachment" "user_terraform-role_attach" {
@@ -54,19 +56,25 @@ resource "aws_iam_policy_attachment" "user_terraform-role_attach" {
 }
 
 #######################################################################################
-# Data templates 
+# Data
+// Read Route53 Zone info
+data "aws_route53_zone" "data_dns_zone" {
+  name         = "${var.dns_domain}."
+  private_zone = false
+}
+// Template to create user role policy
 data "template_file" "data-user_role-policy" {
   count    = var.user_number
   template = file("./templates/role-policy.json")
   vars = {
     region      = var.region
     user_name   = aws_iam_user.user[count.index].name
-    dns_zone_id = var.dns_zone_id
+    dns_zone_id = var.dns_zone_id == null ? data.aws_route53_zone.data_dns_zone.zone_id : var.dns_zone_id
     dns_domain  = var.dns_domain
     prefix      = var.prefix
   }
 }
-
+// Template to create user trust role policy
 data "template_file" "data-user_role-trust-policy" {
   count    = var.user_number
   template = file("./templates/role-trust-policy.json")

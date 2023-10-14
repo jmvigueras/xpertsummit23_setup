@@ -9,20 +9,19 @@ locals {
 
   # List of regions where deploy users
   regions = [
-    "eu-west-1",
-    "eu-west-2",
-    "eu-west-3"
+    "eu-west-1", //Ireland
+    "eu-west-2", //London
+    // "eu-west-3"
   ]
 
-  # Number of user peer region
-  user_number_peer_region = 2
+  # Number of users peer region
+  user_number_peer_region = 3
 
   # Path prefix for users (regex /path-prefix/)
   user_path_prefix = "/xpertsummit23/"
 
   # DNS details
-  dns_zone_id = "Z0507506RNJD04O8Q048"
-  dns_domain  = "xpertsummit-es.com"
+  dns_domain = "xpertsummit-es.com"
 }
 
 #-------------------------------------------------------------------------------------

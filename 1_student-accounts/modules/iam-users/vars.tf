@@ -46,7 +46,7 @@ variable "externalid_token" {
 variable "dns_zone_id" {
   description = "AWS Route 53 hosted zone ID"
   type        = string
-  default     = "*"
+  default     = null
 }
 
 variable "dns_domain" {
