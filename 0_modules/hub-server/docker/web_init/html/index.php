@@ -30,7 +30,7 @@
   <body>
     <h1><span style="color:Red">Fortinet</span> - Xpert Summit 2023</h1>
     <h2>Cloud workshop</h2>
-    <h3>Repositorio del laboratorio: <a href="https://github.com/xpertsummit/xpertsummit23">XperSummit2023 Cloud GitRepo</a></h3>
+    <h3>Guia y repositorio del laboratorio: <a href="https://github.com/xpertsummit/xpertsummit23">XperSummit2023 Cloud GitRepo</a></h3>
     <hr/>
     <h3>Student data: </h3>
         <label for="email">Enter your email:</label>

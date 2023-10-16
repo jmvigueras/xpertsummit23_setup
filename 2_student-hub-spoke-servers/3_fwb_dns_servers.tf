@@ -75,7 +75,7 @@ data "local_file" "fwb_cloud_student_server_fqdn" {
 # Create Route53 record entry with FWB APP CNAME
 resource "aws_route53_record" "student_server_cname" {
   zone_id = data.aws_route53_zone.data_dns_zone.zone_id
-  name    = local.lab_fqdn
+  name    = "${local.student_id}.${data.aws_route53_zone.data_dns_zone.name}"
   type    = "CNAME"
   ttl     = "30"
   records = [data.local_file.fwb_cloud_student_server_fqdn.content]

@@ -6,7 +6,7 @@ resource "aws_instance" "fgt" {
   instance_type        = var.instance_type
   availability_zone    = var.region[var.region_az]
   key_name             = var.keypair
-  iam_instance_profile = aws_iam_instance_profile.fgt-apicall-profile.name
+  //iam_instance_profile = aws_iam_instance_profile.fgt-apicall-profile.name
   user_data            = var.fgt_config
 
   metadata_options {

@@ -34,11 +34,11 @@ output "lab_server" {
 
 output "student_server" {
   value = {
-    private_ip = module.student_server.vm["private_ip"]
-    public_ip  = module.student_server.vm["public_ip"]
-    server_url = "http://${module.student_server.vm["public_ip"]}"
-    fgt_url    = "http://${module.spoke.fgt_eip_public}"
-    app_url    = "http://${local.student_id}.${data.aws_route53_zone.data_dns_zone.name}"
+    private_ip  = module.student_server.vm["private_ip"]
+    public_ip   = module.student_server.vm["public_ip"]
+    server_url  = "http://${module.student_server.vm["public_ip"]}"
+    fgt_vip_url = "http://${module.spoke.fgt_eip_public}"
+    fwb_app_url = "http://${local.student_id}.${data.aws_route53_zone.data_dns_zone.name}"
   }
 }
 

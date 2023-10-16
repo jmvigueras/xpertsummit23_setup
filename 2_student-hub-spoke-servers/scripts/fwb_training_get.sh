@@ -3,7 +3,7 @@
 
 # Variables
 DNS_NAME="xpertsummit-es.com"
-STUDENT_ID="xs23-eu-west-1-user-0"
+STUDENT_ID="xs23-eu-central-1-user-0"
 
 URL="http://$STUDENT_ID.$DNS_NAME"
 
