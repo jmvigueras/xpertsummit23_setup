@@ -5,7 +5,7 @@ output "hub" {
     username     = "admin"
     fgt-1_pass   = module.hub.fgt_id
     vpn_psk      = module.hub_config.vpn_psk
-    admin_cidr   = "${chomp(data.http.my-public-ip.response_body)}/32"
+    admin_cidr   = local.admin_cidr
     api_key      = module.hub_config.api_key
   }
 }
@@ -17,7 +17,7 @@ output "spoke" {
     username     = "admin"
     fgt-1_pass   = module.spoke.fgt_id
     vpn_psk      = module.spoke_config.vpn_psk
-    admin_cidr   = "${chomp(data.http.my-public-ip.response_body)}/32"
+    admin_cidr   = local.admin_cidr
     api_key      = module.spoke_config.api_key
   }
 }
@@ -38,6 +38,7 @@ output "student_server" {
     public_ip  = module.student_server.vm["public_ip"]
     server_url = "http://${module.student_server.vm["public_ip"]}"
     fgt_url    = "http://${module.spoke.fgt_eip_public}"
+    app_url    = "http://${local.student_id}.${data.aws_route53_zone.data_dns_zone.name}"
   }
 }
 

@@ -20,9 +20,10 @@ locals {
   # AWS Route 53 DNS zone name
   dns_zone_name = "xpertsummit-es.com"
   # Fortiweb Cloud template ID
-  fwb_cloud_template = "b4516b99-3d08-4af8-8df7-00246da409cf"
+  fwb_template_lab_srv     = "b4516b99-3d08-4af8-8df7-00246da409cf"
+  fwb_template_student_srv = "898eb1c8-7470-444c-af21-9c9a9a2bea33"
   # FortiWEB Cloud regions where deploy
-  fortiweb_region = "eu-central-1"
+  fortiweb_region = "eu-west-1"
   # FortiWEB Cloud platform names
   fortiweb_platform = "AWS"
   # LAB server FQDN

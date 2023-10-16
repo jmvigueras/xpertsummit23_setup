@@ -11,7 +11,7 @@ locals {
   regions = [
     "eu-west-1", //Ireland
     "eu-west-2", //London
-    "eu-west-3"
+    "eu-west-3"  //Paris
   ]
 
   # Number of users peer region

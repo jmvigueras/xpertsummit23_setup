@@ -14,7 +14,7 @@ resource "aws_network_interface" "fgt_nis" {
   }
 }
 # Attach rest of interfaces (index 0 already attahced)
-resource "aws_network_interface_attachment" "test" {
+resource "aws_network_interface_attachment" "fgt_nis" {
   count                = length(var.fgt_ni_index) - 1
   instance_id          = aws_instance.fgt.id
   network_interface_id = aws_network_interface.fgt_nis[count.index + 1].id

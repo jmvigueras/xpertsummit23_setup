@@ -5,7 +5,7 @@ curl --location 'https://api.fortiweb-cloud.com/v1/application' \
 --header 'Authorization: Basic ${token}' \
 --data '{
 "app_name": "${app_name}",
-"domain_name": "${app_name}.${zone_name}",
+"domain_name": "${domain_name}",
 "custom_port":{
 "http":80,
 "https":443
