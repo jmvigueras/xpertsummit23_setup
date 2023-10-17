@@ -30,8 +30,7 @@ resource "aws_eip" "fgt_eip_public" {
 }
 # Create EIP active MGTM NI
 resource "aws_eip" "fgt_eip_mgmt" {
-  domain = "vpc"
-  // vpc           = true
+  domain            = "vpc"
   network_interface = local.fgt_ni_ids["mgmt"]
   tags = {
     Name = "${var.prefix}-fgt-${var.suffix}-mgmt-eip"

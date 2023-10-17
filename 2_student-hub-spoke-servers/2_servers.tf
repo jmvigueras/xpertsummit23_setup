@@ -8,7 +8,7 @@ resource "aws_network_interface" "lab_server" {
   private_ips       = [local.lab_srv_private_ip]
   source_dest_check = false
   tags = {
-    Name = "${local.prefix}-lab-server"
+    Name = "${local.prefix}-lab-portal"
   }
 }
 # Create EIP active public NI for server test
@@ -16,22 +16,25 @@ resource "aws_eip" "lab_server" {
   domain            = "vpc"
   network_interface = aws_network_interface.lab_server.id
   tags = {
-    Name = "${local.prefix}-lab-server"
+    Name = "${local.prefix}-lab-portal"
   }
 }
 # Deploy cluster master node
 module "lab_server" {
   depends_on = [module.hub]
-  source     = "git::github.com/jmvigueras/modules//aws/new-instance_ni"
+  source     = "./modules/new-instance_ni"
 
-  prefix  = "${local.prefix}-lab-server"
-  keypair = trimspace(aws_key_pair.keypair.key_name)
-
+  keypair       = trimspace(aws_key_pair.keypair.key_name)
   instance_type = local.lab_srv_type
   linux_os      = "amazon"
   user_data     = data.template_file.srv_user_data.rendered
+  ni_id         = aws_network_interface.lab_server.id
 
-  ni_id = aws_network_interface.lab_server.id
+  tags = {
+    Owner   = "${local.prefix}-lab-owner"
+    Name    = "${local.prefix}-lab-portal"
+    Project = local.tags["Project"]
+  }
 }
 # Create user-data for server
 data "template_file" "srv_user_data" {
@@ -106,16 +109,19 @@ resource "aws_eip" "student_server" {
 # Deploy cluster master node
 module "student_server" {
   depends_on = [module.spoke]
-  source     = "git::github.com/jmvigueras/modules//aws/new-instance_ni"
+  source     = "./modules/new-instance_ni"
 
-  prefix  = "${local.prefix}-user-0-server"
-  keypair = trimspace(aws_key_pair.keypair.key_name)
-
+  keypair       = trimspace(aws_key_pair.keypair.key_name)
   instance_type = local.student_srv_type
   linux_os      = "amazon"
   user_data     = data.template_file.student_server_user_data.rendered
+  ni_id         = aws_network_interface.student_server.id
 
-  ni_id = aws_network_interface.student_server.id
+  tags = {
+    Owner   = local.student_id
+    Name    = "${local.prefix}-user-0-server"
+    Project = local.tags["Project"]
+  }
 }
 # Generate template file
 data "template_file" "student_server_user_data" {

@@ -18,7 +18,6 @@ curl --location 'https://api.fortiweb-cloud.com/v1/application' \
 "server_address": "${server_ip}",
 "server_port": ${server_port},
 "server_type": "http",
-"server_country": "${server_country}",
 "head_availability": 1,
 "extra_domains": [],
 "head_status_code": 404,

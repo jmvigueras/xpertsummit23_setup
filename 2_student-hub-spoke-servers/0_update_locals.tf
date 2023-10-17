@@ -6,9 +6,9 @@ locals {
   prefix = "xs23"
   # Region to deploy FGT
   region = {
-    id  = "eu-central-1"
-    az1 = "eu-central-1a"
-    az2 = "eu-central-1b" // same AZ id as AZ1 for a single AZ deployment
+    id  = "eu-west-1"
+    az1 = "eu-west-1a"
+    az2 = "eu-west-1b" // same AZ id as AZ1 for a single AZ deployment
   }
   # Tags
   tags = {
